@@ -32,7 +32,7 @@ Route::post('/', function(Request $req){
   $data = t::create(['name'=>$req->input('name'), 'age'=>$req->input('age'), 'photo'=>'']);
   return (json_encode(["newId"=>$data->id, "photo"=>'']));
 });
-
+ 
 Route::get('/add', function(Request $req){
   return view('view1');
 });
