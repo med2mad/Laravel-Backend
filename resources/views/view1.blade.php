@@ -7,11 +7,19 @@
 </head>
 <body>
 
-    <form action="/" method="POST" >
+    <form action="/" method="POST" enctype="multipart/form-data">
         name: <input type="text" name="name"><br>
         age: <input type="text" name="age"><br>
+        photo: <input type="file" name="photo"><br>
         <input type="submit">
     </form>
-    
+<br><br><br><br>
+    <form action="/130" method="POST" enctype="multipart/form-data">
+        name: <input type="text" name="name"><br>
+        age: <input type="text" name="age"><br>
+        photo: <input type="file" name="photo"><br>
+        <input type="submit">
+    </form>
+
 </body>
 </html>
