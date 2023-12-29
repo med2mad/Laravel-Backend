@@ -83,6 +83,11 @@ return [
             ]) : [],
         ],
 
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'dsn' => 'mongodb://localhost:27017',
+            'database' => 'medDB',
+        ],
 
         'pgsql' => [
             'driver' => 'pgsql',
