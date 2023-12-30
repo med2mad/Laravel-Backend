@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    <form action="/" method="POST" enctype="multipart/form-data">
+    <form action="/MongoModel/" method="POST" enctype="multipart/form-data">
         name: <input type="text" name="name"><br>
         age: <input type="text" name="age"><br>
         photo: <input type="file" name="photo"><br>

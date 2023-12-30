@@ -14,5 +14,5 @@ class MongoModel extends Model
     protected $guarded = [];
     protected $connection= 'mongodb';
     protected $collection = 'users';
-    
+
 }

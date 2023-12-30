@@ -16,37 +16,28 @@ use Illuminate\Http\Request;
 
 Route::get('/{model}', function(Request $request){
   $Model = "App\Models\\".$request->model;
-  $data = $Model::where('name','like',"%". $request->query('_name') ."%")->limit($request->query('_limit'))->orderByDesc('_id');
-  if($request->query('_age')) {$data = $data->where('age', $request->query('_age'));}
+  $data = $Model::where('name','like',"%". $request->query('_name') ."%")->limit($request->query('_limit'));
+  if($request->query('_age')) {$data = $data->where('age', $request->query('_age'))->orderByDesc('_id');}
   return(json_encode($data->get()));
 });
 
-Route::post('/', function(Request $request){
+Route::post('/{model}', function(Request $request){
   $photoName = $request->attributes->get('photoName');
-  $data = 'App\\Models\\MongoModel'::create(['name'=>$request->input('name'), 'age'=>$request->input('age'), 'photo'=>$photoName]);
-  return (json_encode(["newId"=>$data->_id, "photo"=>$photoName]));
+  $Model = "App\Models\\".$request->model;
+  $data = $Model::create(['name'=>$request->input('name'), 'age'=>$request->input('age'), 'photo'=>$photoName]);
+  return (json_encode(["newId"=>$data->_id, "photo"=>$photoName]));  
 })->middleware('PhotoConfirm');
 
-Route::post('/s', function(Request $request){
+Route::put('/{model}/{id}', function(Request $request){
   $photoName = $request->attributes->get('photoName');
-  $data = t::create(['name'=>$request->input('name'), 'age'=>$request->input('age'), 'photo'=>$photoName]);
-  return (json_encode(["newId"=>$data->id, "photo"=>$photoName]));
-})->middleware('PhotoConfirm');
-
-Route::put('/{id}', function(Request $request){
-  $photoName = $request->attributes->get('photoName');
-  'App\\Models\\MongoModel'::find($request->id)->update(['name'=>$request->input('name'), 'age'=>$request->input('age'), 'photo'=>$photoName]);
+  $Model = "App\Models\\".$request->model;
+  $Model::find($request->id)->update(['name'=>$request->input('name'), 'age'=>$request->input('age'), 'photo'=>$photoName]);
   return (json_encode(["photo"=>$photoName]));
 })->middleware('PhotoConfirm');
 
-Route::put('/s/{id}', function(Request $request){
-  $photoName = $request->attributes->get('photoName');
-  t::find($request->id)->update(['name'=>$request->input('name'), 'age'=>$request->input('age'), 'photo'=>$photoName]);
-  return (json_encode(["photo"=>$photoName]));
-})->middleware('PhotoConfirm');
-
-Route::delete('/{id}', function(Request $request){
-  DB::connection('test')->table('users')->where('id', $request->id)->delete();
+Route::delete('/{model}/{id}', function(Request $request){
+  $Model = "App\Models\\".$request->model;
+  $Model::find($request->id)->delete();
     //GET the replacement row
     $q = "SELECT * FROM users WHERE id=(SELECT Max(id) from users where id < '". $request->query('lasttableid') ."')";
     $row = DB::connection('test')->select($q);
@@ -57,6 +48,6 @@ Route::delete('/{id}', function(Request $request){
 
 
 
-Route::get('/add', function(Request $request){
+Route::get('/add/add', function(Request $request){
   return view('view1');
 });
