@@ -16,8 +16,8 @@ use Illuminate\Http\Request;
 
 Route::get('/{model}', function(Request $request){
   $Model = "App\Models\\".$request->model;
-  $data = $Model::where('name','like',"%". $request->query('_name') ."%")->limit($request->query('_limit'));
-  if($request->query('_age')) {$data = $data->where('age', $request->query('_age'))->orderByDesc('_id');}
+  $data = $Model::where('name','like',"%". $request->query('_name') ."%")->limit($request->query('_limit'))->orderByDesc('_id');
+  if($request->query('_age')) {$data = $data->where('age', $request->query('_age'));}
   return(json_encode($data->get()));
 });
 
@@ -39,9 +39,9 @@ Route::delete('/{model}/{id}', function(Request $request){
   $Model = "App\Models\\".$request->model;
   $Model::find($request->id)->delete();
     //GET the replacement row
-    $q = "SELECT * FROM users WHERE id=(SELECT Max(id) from users where id < '". $request->query('lasttableid') ."')";
-    $row = DB::connection('test')->select($q);
-    return(json_encode($row));
+    $max = $Model::where('_id','<',$request->query('lasttableid'))->max('_id');
+    $data = $Model::where('_id', $max);
+    return(json_encode($data->get()));
 });
 
 
