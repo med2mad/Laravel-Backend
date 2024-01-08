@@ -25,7 +25,7 @@ class PhotoConfirm
             if($photoSize>1024*1024*10){ return response('Error: Photo too large'); }
 
             $photoName = $request->file('photo')->getClientOriginalName().time(); 
-            move_uploaded_file($_FILES['photo']['tmp_name'], "C:\Users\MED\Desktop\AJAX Paradise\public\uploads/".$photoName);
+            $request->file('photo')->move("C:\Users\MED\Desktop\AJAX Paradise\public\uploads/", $photoName);
         }
         else{ $photoName = $request->input('selectedPhotoName'); }
 

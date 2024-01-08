@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\testcontroller;
 use App\Models\t_test;
-use App\Models\dog;
-use App\Models\t;
+use App\Models\PostgreSQLModel;
+use App\Models\MysqlModel;
 use App\Models\MongoModel;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
@@ -49,5 +49,7 @@ Route::delete('/{model}/{id}', function(Request $request){
 
 
 Route::get('/add/add', function(Request $request){
-  return view('view1');
+  return view('viewf');
+  return view('viewt', ['items'=>MysqlModel::paginate(10)]);
+  
 });
