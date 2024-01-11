@@ -15,5 +15,5 @@ class MysqlModel extends Model
     protected $table = 'test.users';
     protected $primaryKey = '_id';//whithout this, the primarykey is 'id', and POST requests return 'id' and i want '_id'
                                     //no problem in raw sql, cause it already returns the table's primarykey
-    
+    // protected $connection = 'test';
 }
