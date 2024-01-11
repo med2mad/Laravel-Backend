@@ -14,14 +14,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        MysqlModel::create(['name'=>'seed Name', 'age'=>34, 'photo'=>'']);
+        // MysqlModel::create(['name'=>'seed Name', 'age'=>34, 'photo'=>'']);
 
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory(10)->create([
+        ]);
 
 
     }
