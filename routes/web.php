@@ -45,17 +45,9 @@ Route::delete('/{model}/{id}', function(Request $request){
 
 
 Route::get('/add/add', function(Request $request){
-
-  // // DB::insert("insert into users(name, email, password)values(?,?,?)", ['Q- '.Str::random(4), Str::random(4).'@gmail.com', Str::random(4)]);
-  // // DB::insert("insert into users(name, email, password)values(?,?,?)", ['Q- '.Str::random(4), Str::random(4).'@gmail.com', Str::random(4)]);
-  
-  DB::table('users')->insert(['name'=>'QB- '.Str::random(4), 'email'=>'nakia.little@example.org', 'password'=>Str::random(4)]);
-  // DB::table('users')->insert(['name'=>'QB- '.Str::random(4), 'email'=>Str::random(4).'@gmail.com', 'password'=>Str::random(4)]);
-  
-  // // User::factory(1)->create();
-  // // User::factory(1)->create(['name'=>'MF- '. Str::random(4)]);
+  //User::factory(1)->create();
+  //User::factory(1)->create(['name'=>'MF- '. Str::random(4)]);
 
   // return view('viewf');
   // return view('viewt', ['items'=>MysqlModel::paginate(10)]);
-  
 });
