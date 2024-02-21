@@ -8,16 +8,27 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Models\MysqlModel;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Http\Requests\request2;
+
 
 Route::get('/{model}', function(Request $request){
   $Model = "App\Models\\".$request->model;
-  $data = $Model::where('name','like',"%". $request->query('_name') ."%")->limit($request->query('_limit'))->orderByDesc('_id');
-  if($request->query('_age')) {$data = $data->where('age', $request->query('_age'));}
-  return(json_encode($data->get()));
+  $data = $Model::where('name','like',"%". $request->query('_name') ."%")->offset($request->query('_skip'))->limit($request->query('_limit'))->orderByDesc('_id');
+  $count = $Model::where('name','like',"%". $request->query('_name') ."%");
+  if($request->query('_age')) {$data = $data->where('age', $request->query('_age')); $count = $data->where('age', $request->query('_age'));}
+  return(json_encode(["rows"=>$data->get(), "total"=>$count->count()]));
 });
 
 Route::post('/{model}', function(Request $request){
+  try {
+    $request->validate(['name'=>'between:1,30', 'age'=>'integer|min:18|max:99']);
+  } catch (\Illuminate\Validation\ValidationException $th) {
+    $errors = [];
+    if(isset($th->errors()["name"])){array_push($errors, ["path"=>"name"]);}
+    if(isset($th->errors()["age"])){array_push($errors, ["path"=>"age"]);}
+    return(["errors"=>$errors]);
+  }
+
   $photoName = $request->attributes->get('photoName');
   $Model = "App\Models\\".$request->model;
   $data = $Model::create(['name'=>$request->input('name'), 'age'=>$request->input('age'), 'photo'=>$photoName]);
@@ -25,6 +36,15 @@ Route::post('/{model}', function(Request $request){
 })->middleware('PhotoConfirm');
 
 Route::put('/{model}/{id}', function(Request $request){
+  try {
+    $request->validate(['name'=>'between:1,30', 'age'=>'integer|min:18|max:99']);
+  } catch (\Illuminate\Validation\ValidationException $th) {
+    $errors = [];
+    if(isset($th->errors()["name"])){array_push($errors, ["path"=>"name"]);}
+    if(isset($th->errors()["age"])){array_push($errors, ["path"=>"age"]);}
+    return(["errors"=>$errors]);
+  }
+  
   $photoName = $request->attributes->get('photoName');
   $Model = "App\Models\\".$request->model;
   $Model::find($request->id)->update(['name'=>$request->input('name'), 'age'=>$request->input('age'), 'photo'=>$photoName]);
@@ -45,9 +65,6 @@ Route::delete('/{model}/{id}', function(Request $request){
 
 
 Route::get('/add/add', function(Request $request){
-  //User::factory(1)->create();
-  //User::factory(1)->create(['name'=>'MF- '. Str::random(4)]);
-
-  // return view('viewf');
+  return view('viewf');
   // return view('viewt', ['items'=>MysqlModel::paginate(10)]);
 });
