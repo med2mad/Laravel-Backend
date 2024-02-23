@@ -24,7 +24,7 @@ Route::post('/{model}', function(Request $request){
     $request->validate(['name'=>'between:1,30', 'age'=>'integer|min:18|max:99']);
   } catch (\Illuminate\Validation\ValidationException $th) {
     $errors = [];
-    if(isset($th->errors()["name"])){array_push($errors, ["path"=>"name"]);}
+    if(isset($th->errors()["name"])){array_push($errors, ["path"=>"name"]);} //"path" to match express-validator
     if(isset($th->errors()["age"])){array_push($errors, ["path"=>"age"]);}
     return(["errors"=>$errors]);
   }
