@@ -12,11 +12,16 @@ use App\Http\Requests\request2;
 
 
 Route::get('/{model}', function(Request $request){
-  $Model = "App\Models\\".$request->model;
+  $Model = "App\Models\\".$request->model;  $begin = microtime(true);
   $data = $Model::where('name','like',"%". $request->query('_name') ."%")->offset($request->query('_skip'))->limit($request->query('_limit'))->orderByDesc('_id');
   $count = $Model::where('name','like',"%". $request->query('_name') ."%");
   if($request->query('_age')) {$data = $data->where('age', $request->query('_age')); $count = $data->where('age', $request->query('_age'));}
-  return(json_encode(["rows"=>$data->get(), "total"=>$count->count()]));
+
+
+  $rows = $data->get();
+  $end = microtime(true) - $begin;
+
+  return(json_encode(["rows"=>$rows, "total"=>$count->count(), "time"=>$end]));
 });
 
 Route::post('/{model}', function(Request $request){
