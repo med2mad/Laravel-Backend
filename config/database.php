@@ -62,10 +62,34 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+        'mysql freesqldatabase.com' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => "sql8.freesqldatabase.com",
+            'port' => 3306,
+            'database' => 'sql8692210',
+            'username' => "sql8692210",
+            'password' => "3vbKb8G5nL",
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
 
         'mongodb' => [
             'driver' => 'mongodb',
             'dsn' => 'mongodb://localhost:27017',
+            'database' => 'test',
+        ],
+        'mongodb cloud.mongodb.com' => [
+            'driver' => 'mongodb',
+            'dsn' => 'mongodb+srv://med:allahommairhamna@cluster0.7zp3rzt.mongodb.net/',
             'database' => 'test',
         ],
 
@@ -73,7 +97,7 @@ return [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
-            'port' =>'5432', // env('DB_PORT', '5432'),
+            'port' =>'5432', //env('DB_PORT', '5432'),
             'database' => "test", //env('DB_DATABASE', 'forge'),
             'username' => "postgres", //env('DB_USERNAME', 'forge'),
             'password' => "5432", //env('DB_PASSWORD', ''),
@@ -82,6 +106,9 @@ return [
             'prefix_indexes' => true,
             'search_path' => 'public',
             'sslmode' => 'prefer',
+        ],
+        'pgsql elephantsql.com' => [
+            'url' => 'postgres://vwvnxbct:XNLTn1mvFz6q4vf0IS5c9iXoSALqn68q@surus.db.elephantsql.com/vwvnxbct',
         ],
 
         'sqlsrv' => [

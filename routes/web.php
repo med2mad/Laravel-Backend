@@ -12,16 +12,11 @@ use App\Http\Requests\request2;
 
 
 Route::get('/{model}', function(Request $request){
-  $Model = "App\Models\\".$request->model;  $begin = microtime(true);
-  $data = $Model::where('name','like',"%". $request->query('_name') ."%")->offset($request->query('_skip'))->limit($request->query('_limit'))->orderByDesc('_id');
-  $count = $Model::where('name','like',"%". $request->query('_name') ."%");
+  $Model = "App\Models\\".$request->model;
+  $data = $Model::select('_id','name','age','photo')->where('name','like',"%". $request->query('_name') ."%")->offset($request->query('_skip'))->limit($request->query('_limit'))->orderByDesc('_id');
+  $count = $Model::select('_id')->where('name','like',"%". $request->query('_name') ."%");
   if($request->query('_age')) {$data = $data->where('age', $request->query('_age')); $count = $data->where('age', $request->query('_age'));}
-
-
-  $rows = $data->get();
-  $end = microtime(true) - $begin;
-
-  return(json_encode(["rows"=>$rows, "total"=>$count->count(), "time"=>$end]));
+  return(json_encode(["rows"=>$data->get(), "total"=>$count->count()]));
 });
 
 Route::post('/{model}', function(Request $request){
@@ -60,8 +55,8 @@ Route::delete('/{model}/{id}', function(Request $request){
   $Model = "App\Models\\".$request->model;
   $Model::find($request->id)->delete();
     //GET the replacement row
-    $max = $Model::where('_id','<',$request->query('lasttableid'))->max('_id');
-    $data = $Model::where('_id', $max);
+    $max = $Model::select('_id')->where('_id','<',$request->query('lasttableid'))->max('_id');
+    $data = $Model::select('_id','name','age','photo')->where('_id', $max);
     return(json_encode($data->get()));
 });
 

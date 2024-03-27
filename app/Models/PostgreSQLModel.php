@@ -12,9 +12,10 @@ class PostgreSQLModel extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $connection= 'pgsql';
+    // protected $connection= 'pgsql';
+    protected $connection= 'pgsql elephantsql.com';
     protected $table = 'profiles';
+    public $timestamps = false;
     protected $primaryKey = '_id'; //whithout this, the primarykey is 'id', and POST requests return 'id' and i want '_id'
                                     //in raw sql it is already handled by the 'RETURNING' clause of the 'INSERT' query 
-    
 }

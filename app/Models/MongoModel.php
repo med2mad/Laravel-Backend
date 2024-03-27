@@ -12,7 +12,8 @@ class MongoModel extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $connection= 'mongodb';
+    // protected $connection= 'mongodb';
+    protected $connection= 'mongodb cloud.mongodb.com';
     protected $collection = 'profiles';
 
 }

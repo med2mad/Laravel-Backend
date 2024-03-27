@@ -12,8 +12,10 @@ class MysqlModel extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $connection= 'mysql';
-    protected $table = 'test.profiles';
-    protected $primaryKey = '_id';//whithout this, the primarykey is 'id', and POST requests return 'id' and i want '_id'
+    // protected $connection= 'mysql';
+    protected $connection= 'mysql freesqldatabase.com';
+    protected $table = 'profiles';
+    public $timestamps = false;
+    protected $primaryKey = '_id'; //whithout this, the primarykey is 'id', and POST requests return 'id' and i want '_id'
                                     //no problem in raw sql, cause it already returns the table's primarykey
 }
