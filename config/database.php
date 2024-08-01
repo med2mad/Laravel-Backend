@@ -48,7 +48,7 @@ return [
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => 'test',//env('DB_DATABASE', 'forge'),
+            'database' => 'dbname',//env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
@@ -85,12 +85,12 @@ return [
         'mongodb' => [
             'driver' => 'mongodb',
             'dsn' => 'mongodb://localhost:27017',
-            'database' => 'test',
+            'database' => 'dbname',
         ],
         'mongodb cloud.mongodb.com' => [
             'driver' => 'mongodb',
             'dsn' => 'mongodb+srv://med:allahommairhamna@cluster0.7zp3rzt.mongodb.net/',
-            'database' => 'test',
+            'database' => 'dbname',
         ],
 
         'pgsql' => [
@@ -98,7 +98,7 @@ return [
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' =>'5432', //env('DB_PORT', '5432'),
-            'database' => "test", //env('DB_DATABASE', 'forge'),
+            'database' => "dbname", //env('DB_DATABASE', 'forge'),
             'username' => "postgres", //env('DB_USERNAME', 'forge'),
             'password' => "5432", //env('DB_PASSWORD', ''),
             'charset' => 'utf8',
