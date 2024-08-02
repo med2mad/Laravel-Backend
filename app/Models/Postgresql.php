@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
 
-class MysqlModel extends Model
+class Postgresql extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
-    protected $connection= 'mysql';
-    // protected $connection= 'mysql freesqldatabase.com';
+    protected $connection= 'pgsql';
+    // protected $connection= 'pgsql elephantsql.com';
     protected $table = 'profiles';
     public $timestamps = false;
     protected $primaryKey = '_id'; //whithout this, the primarykey is 'id', and POST requests return 'id' and i want '_id'
-                                    //no problem in raw sql, cause it already returns the table's primarykey
+                                    //in raw sql it is already handled by the 'RETURNING' clause of the 'INSERT' query 
 }
