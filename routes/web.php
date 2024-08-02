@@ -13,9 +13,9 @@ use App\Http\Requests\request2;
 
 Route::get('/{model}', function(Request $request){
   $Model = "App\Models\\".$request->model;
-  $data = $Model::select('_id','name','age','photo')->where('name','like',"%". $request->query('_name') ."%")->offset($request->query('_skip'))->limit($request->query('_limit'))->orderByDesc('_id');
-  $count = $Model::select('_id')->where('name','like',"%". $request->query('_name') ."%");
-  if($request->query('_age')) {$data = $data->where('age', $request->query('_age')); $count = $data->where('age', $request->query('_age'));}
+  $data = $Model::select('_id','name','age','photo')->where('name','like',"%". $request->query('name') ."%")->offset(($request->query('page')-1)*$request->query('limit'))->limit($request->query('limit'))->orderByDesc('_id');
+  $count = $Model::select('_id')->where('name','like',"%". $request->query('name') ."%");
+  if($request->query('age')) {$data = $data->where('age', $request->query('age')); $count = $data->where('age', $request->query('age'));}
   return(json_encode(["rows"=>$data->get(), "total"=>$count->count()]));
 });
 
