@@ -89,7 +89,7 @@ return [
         ],
         'mongodb cloud.mongodb.com' => [
             'driver' => 'mongodb',
-            'dsn' => 'mongodb+srv://med:allahommairhamna@cluster0.7zp3rzt.mongodb.net/',
+            'dsn' => 'mongodb+srv://med:allahommairhamna@cluster0.7zp3rzt.mongodb.net/dbname',
             'database' => 'dbname',
         ],
 

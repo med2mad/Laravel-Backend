@@ -22,7 +22,7 @@ class PhotoConfirm
             $photoType = $request->file('photo')->getMimeType();
             if(!Str::startsWith($photoType,'image/')){ return response('Error: Only Images!'); }
             $photoSize = $request->file('photo')->getSize();
-            if($photoSize>1024*1024*10){ return response('Error: Photo too large'); }
+            if($photoSize>1024*1024*20){ return response('Error: Photo too large'); }
 
             $photoName = $request->file('photo')->getClientOriginalName().time(); 
             $request->file('photo')->move("C:\Users\MED\Desktop\AJAX Paradise\public\uploads/", $photoName);

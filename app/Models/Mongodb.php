@@ -7,7 +7,7 @@ use MongoDB\Laravel\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
 
-class Mongoodb extends Model
+class Mongodb extends Model
 {
     use HasFactory;
 
