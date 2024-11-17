@@ -25,7 +25,7 @@ class PhotoConfirm
             if($photoSize>1024*1024*20){ return response('Error: Photo too large'); }
 
             $photoName = $request->file('photo')->getClientOriginalName().time(); 
-            $request->file('photo')->move("C:\Users\MED\Desktop\AJAX Paradise\public\uploads/", $photoName);
+            $request->file('photo')->move("/webProjects/AJAX School/vue front/public/uploads/", $photoName);//this is consedered "localhost/webprojects", without the initial slash (/) the adress is relative (webProjects folder is created in this app's "public")
         }
         else{ $photoName = $request->input('selectedPhotoName'); }
 
